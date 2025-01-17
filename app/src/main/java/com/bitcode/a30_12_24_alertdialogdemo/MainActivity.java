@@ -20,7 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnAlertDialog,btnTimePickerDialog, btnDatePickerDialog;
+    Button btnAlertDialog,btnTimePickerDialog, btnDatePickerDialog, btnLogoutDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         btnAlertDialog = findViewById(R.id.btnAlertDialog);
         btnTimePickerDialog = findViewById(R.id.btnTimePickerDialog);
         btnDatePickerDialog = findViewById(R.id.btnDatePickerDialog);
+        btnLogoutDialog = findViewById(R.id.btnLogoutDialog);
     }
 
     private void initListeners(){
@@ -85,6 +86,27 @@ public class MainActivity extends AppCompatActivity {
                     datePickerDialog.show();
             }
         });
+
+        btnLogoutDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogoutDialog logoutDialog = new LogoutDialog(MainActivity.this);
+                logoutDialog.setOnLogoutDialogClickListener(new LogoutDialogClickListener());
+                logoutDialog.show();
+            }
+        });
+    }
+
+    class LogoutDialogClickListener implements LogoutDialog.OnLogoutDialogClickListener{
+        @Override
+        public void onSuccess() {
+            Log.e("tag", "on Success");
+        }
+
+        @Override
+        public void onFailure() {
+            Log.e("tag", "on Failure");
+        }
     }
 
     class TimePickerDialogButtonClickListener implements TimePickerDialog.OnTimeSetListener{
